@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Dashboard</title>
+{% block side %}
+<div class="col-sm-2 my-5">
+    <h3>Profile</h3>
+    <p class="text-capitalize">{{fullName}}</p>
+    <small>Your IP Address: {{ip}} </small> 
+
+</div>
+{% endblock side %}
+{% block content %}
+<div class="col-sm-9">
+
+    <h4 class="text-center alert alert-info mt-3"> Show Posts</h4>
+    {% if posts %}
+    <table class="table table-hover bg-white">
+
+        {% for post in posts %}
+        <tbody>
+            <tr class="text-left">
+                <th>{{post.title}}
+                    <small class="text-sm-end"> <a href="{% url 'updatepost' post.id %}">|| Edit ||</a></small>
+                    {% if perms.blog.delete_article %}
+                    <small class="text-sm-end"> <a href="{% url 'deletepost' post.id %}" style="color: red;"> Delete
+                            ||</a></small>
+                    {% endif %}<br>
+                    {{post.content}} <br>
+                    
+                </th>
+            </tr>
+
+        </tbody>
+
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No Records availabe </p>
+    {% endif %}
+</div>
+{% endblock content %}

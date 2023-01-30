@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-sm-6 my-5">
+    <h3>Write your view covering all dimensions</h3><br>
+    <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+        {{field.label_tag}} {{field}} {{field.errors|striptags}} 
+        {% endfor %}
+        <p class="text-sm-end mt-3"><input type="submit" value="Post"></p>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <small style="color: black;">{{message}}</small>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock content %}
